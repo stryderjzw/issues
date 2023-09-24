@@ -1,4 +1,4 @@
-defmodule Issues.Cli do
+defmodule Issues.CLI do
   @default_count 4
 
   @moduledoc """
@@ -6,6 +6,22 @@ defmodule Issues.Cli do
   of the last _n_ issues for a given GitHub project.
   """
 
+  def run(argv) do
+    argv
+    |> parse_args
+    |> process
+  end
+
+  def process(:help) do
+    IO.puts """
+    Usage: issues [options] <username> <project> [count | #{@default_count}]
+    """
+    System.halt(0)
+  end
+
+  def process({user, project, _count}) do
+    Issues.GithubIssues.fetch(user, project)
+  end
 
   @doc """
   `argv` can be -h or --help, which returns :help.
