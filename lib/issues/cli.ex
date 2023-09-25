@@ -6,7 +6,7 @@ defmodule Issues.CLI do
   of the last _n_ issues for a given GitHub project.
   """
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
